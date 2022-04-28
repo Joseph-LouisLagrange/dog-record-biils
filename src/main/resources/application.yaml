@@ -1,0 +1,61 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+      date: yyyy-MM-dd
+      time: HH:mm:ss
+  redis:
+    port: 6379
+    host: 127.0.0.1
+    password:
+    timeout: PT30M
+  session:
+    redis:
+      namespace: spring:session
+      save-mode: on_set_attribute
+      flush-mode: on_save
+    store-type: redis
+  datasource:
+    host: 127.0.0.1:3306    # 这是自定义的
+    database: dog             # 这是自定义的
+    type: com.mysql.cj.jdbc.MysqlConnectionPoolDataSource
+    url: jdbc:mysql://${spring.datasource.host}/${spring.datasource.database}?serverTimezone=GMT%2B8&autoReconnect=true&autoReconnectForPools=true&useSSL=false&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456789
+    driver-class-name: com.mysql.cj.jdbc.Driver       # mysql 8 使用的
+    name: Mysql{127.0.0.1}
+    initialization-mode: always
+    hikari:
+      connection-init-sql: ""
+  jpa:
+    database: mysql
+    show-sql: on
+    generateDdl: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: true
+  profiles:
+    include: custom
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  tomcat:
+    uri-encoding: UTF-8
+logging:
+  level:
+    root: info
+    com:
+      darwin:
+        dog:
+          service: DEBUG

@@ -1,0 +1,52 @@
+[
+  {
+    "ID": 1,
+    "name": "默认",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 2,
+    "name": "婚礼",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 3,
+    "name": "娱乐",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 4,
+    "name": "阅读",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 5,
+    "name": "上班",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 6,
+    "name": "宝宝",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 7,
+    "name": "健身",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 8,
+    "name": "宠物",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 9,
+    "name": "旅行",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  },
+  {
+    "ID": 10,
+    "name": "装修",
+    "url": "http://47.98.209.134:8080/file/preview?ID=1"
+  }
+]

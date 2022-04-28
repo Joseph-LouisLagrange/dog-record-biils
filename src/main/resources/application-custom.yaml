@@ -1,0 +1,16 @@
+applet:
+  auth:
+    app-ID: wx7e4a1e4936993136
+    secret: e3cc468b9613f1b3a33ec9c2203c5626
+    grant-type: authorization_code
+    login-path: /login/applet
+sms:
+  aliyun:
+    sign-name: xxx
+    access-key-id: xxx
+    access-key-secret: xxx
+file-plan:
+  repository: 'E:/'
+
+
+

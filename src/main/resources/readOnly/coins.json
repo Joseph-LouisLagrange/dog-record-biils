@@ -1,0 +1,100 @@
+[
+  {
+    "ID": 1,
+    "name": "澳大利亚元",
+    "shortName": "AUD",
+    "symbol": "[$]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 2,
+    "name": "加拿大元",
+    "shortName": "CAD",
+    "symbol": "[a]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 3,
+    "name": "人民币",
+    "shortName": "CNY",
+    "symbol": "[b]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 4,
+    "name": "欧元",
+    "shortName": "EUR",
+    "symbol": "[c]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 5,
+    "name": "英镑",
+    "shortName": "GBP",
+    "symbol": "[d]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 6,
+    "name": "港元",
+    "shortName": "HKD",
+    "symbol": "[e]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 7,
+    "name": "日元",
+    "shortName": "JPY",
+    "symbol": "[f]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 8,
+    "name": "韩元",
+    "shortName": "KRW",
+    "symbol": "[g]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 9,
+    "name": "澳门元",
+    "shortName": "MOP",
+    "symbol": "[h]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 10,
+    "name": "林吉特",
+    "shortName": "MYR",
+    "symbol": "[i]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 11,
+    "name": "新加坡元",
+    "shortName": "SGD",
+    "symbol": "[j]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 12,
+    "name": "泰国铢",
+    "shortName": "THB",
+    "symbol": "[k]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 13,
+    "name": "新台币",
+    "shortName": "TWD",
+    "symbol": "[l]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  },
+  {
+    "ID": 14,
+    "name": "美元",
+    "shortName": "USD",
+    "symbol": "[m]",
+    "iconUrl":"https://ae01.alicdn.com/kf/Hc7a2cd7b19aa4d8b92b6ca87a87974ffL.jpg"
+  }
+]

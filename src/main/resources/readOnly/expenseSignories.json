@@ -1,0 +1,138 @@
+[
+  {
+    "ID": 1,
+    "name": "零食",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 2,
+    "name": "餐饮",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 3,
+    "name": "水果",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 4,
+    "name": "娱乐",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 5,
+    "name": "运动",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 6,
+    "name": "通讯",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 7,
+    "name": "服饰",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 8,
+    "name": "美容",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 9,
+    "name": "住房",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 10,
+    "name": "家庭",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 10,
+    "name": "社交",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 11,
+    "name": "旅行",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 12,
+    "name": "烟酒",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 13,
+    "name": "数码",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 14,
+    "name": "汽车",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 15,
+    "name": "医疗",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  },
+  {
+    "ID": 16,
+    "name": "书籍",
+    "icon": {
+      "type": "entypo",
+      "name": "cake"
+    }
+  }
+]
