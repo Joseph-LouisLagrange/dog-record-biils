@@ -21,7 +21,8 @@ public interface LedgerRepository extends JpaRepository<Ledger,Long> {
     @Query(value = "from Ledger l where l.user.ID =:#{#user.ID} and l.using=true and l.deleted=false")
     Optional<Ledger> findUsingLedger(@Param("user") User user);
 
-    @Query(value = "select sum(b.amount) from Bill b where b.ledger.ID=:ledgerID and b.deleted=false")
+    @Deprecated
+    @Query(value = "select sum(b.amount) from Bill b where b.ledger.ID=:ledgerID and b.deleteType=com.darwin.dog.constant.BillDeleteType.NO_DELETE")
     Optional<BigDecimal> computeSurplus(@Param("ledgerID") Long ledgerID);
 
 

@@ -1,5 +1,6 @@
 package com.darwin.dog.service.impl;
 
+import com.darwin.dog.constant.BillType;
 import com.darwin.dog.constant.ObjectsCode;
 import com.darwin.dog.dto.in.CreateLedgerInDTO;
 import com.darwin.dog.dto.in.UpdateLedgerDTO;
@@ -53,6 +54,16 @@ public class LedgerServiceImpl implements LedgerService {
 
     private Supplier<CommonException> ledgerMiss(String msg) {
         return () -> CommonException.of(BaseExceptionType.MISS, ObjectsCode.LEDGER, msg);
+    }
+
+    @Override
+    public BigDecimal sumExpense(Long ledgerID) {
+        return billService.sum(billRepository.findByLedgerIDAndBillType(ledgerID, BillType.EXPENSE),getLedgerByID(ledgerID).getCoin());
+    }
+
+    @Override
+    public BigDecimal sumIncome(Long ledgerID) {
+        return billService.sum(billRepository.findByLedgerIDAndBillType(ledgerID, BillType.INCOME),getLedgerByID(ledgerID).getCoin());
     }
 
     @Override
@@ -129,6 +140,17 @@ public class LedgerServiceImpl implements LedgerService {
                 .map(this::surplus0)
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
+    }
+
+    @Override
+    public boolean setUsingLedger(Long ledgerID) {
+        Ledger usingLedger = getUsingLedger();
+        Ledger ledgerByID = getLedgerByID(ledgerID);
+        usingLedger.setUsing(false);
+        usingLedger.setUsing(true);
+        ledgerRepository.save(usingLedger);
+        ledgerRepository.save(ledgerByID);
+        return false;
     }
 
     @Override

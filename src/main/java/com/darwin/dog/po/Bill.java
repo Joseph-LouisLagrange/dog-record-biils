@@ -1,6 +1,7 @@
 package com.darwin.dog.po;
 
 import com.darwin.dog.annotation.Comment;
+import com.darwin.dog.constant.BillDeleteType;
 import com.darwin.dog.constant.BillType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -63,8 +64,8 @@ public class Bill implements Serializable {
 
     @NonNull
     @Comment("删除标记")
-    @Column(name = "deleted")
-    private Boolean deleted;
+    @Column(name = "delete_state")
+    private BillDeleteType deleteType;
 
     @NonNull
     @ManyToOne(targetEntity = Coin.class, fetch = FetchType.EAGER, optional = false)

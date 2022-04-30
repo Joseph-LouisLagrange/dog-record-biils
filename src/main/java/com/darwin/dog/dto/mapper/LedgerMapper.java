@@ -49,6 +49,13 @@ public interface LedgerMapper extends BaseMapper {
         return getBean(LedgerService.class).surplus(ledgerID);
     }
 
+    default BigDecimal sumExpense(Long ledgerID){
+        return getBean(LedgerService.class).sumExpense(ledgerID);
+    }
+
+    default BigDecimal sumIncome(Long ledgerID){
+        return getBean(LedgerService.class).sumIncome(ledgerID);
+    }
 
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "createTime", ignore = true)
@@ -59,6 +66,9 @@ public interface LedgerMapper extends BaseMapper {
     void updateLedgerDTOToLedger(UpdateLedgerDTO updateLedgerDTO, @MappingTarget Ledger ledger);
 
 
+
+    @Mapping(target = "sumIncome", expression = "java(sumIncome(ledger.getID()).doubleValue())")
+    @Mapping(target = "sumExpense",expression = "java(sumExpense(ledger.getID()).doubleValue())")
     @Mapping(target = "ID",expression = "java(ledger.getID())")
     @Mapping(target = "surplus", expression = "java(getSurplus(ledger.getID()).doubleValue())")
     @Mapping(target = "billCount", expression = "java(getBillCount(ledger.getID()))")

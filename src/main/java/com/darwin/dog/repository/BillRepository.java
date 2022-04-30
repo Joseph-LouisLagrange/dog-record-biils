@@ -1,5 +1,6 @@
 package com.darwin.dog.repository;
 
+import com.darwin.dog.constant.BillType;
 import com.darwin.dog.po.Bill;
 import com.darwin.dog.po.Ledger;
 import com.darwin.dog.po.User;
@@ -19,21 +20,23 @@ public interface BillRepository extends JpaRepository<Bill,Long> , JpaSpecificat
 
 
 
-    @Query(value = "select count(l) from Bill l where l.ledger.ID=:ledgerID and l.deleted=false")
+    @Query(value = "select count(l) from Bill l where l.ledger.ID=:ledgerID and l.deleteType=com.darwin.dog.constant.BillDeleteType.NO_DELETE")
     long countByLedgerID(@Param("ledgerID") Long ledgerID);
 
-    @Query("from Bill b where b.user=:user and b.dateTime between :start and :end and b.deleted=false")
+    @Query("from Bill b where b.user=:user and b.dateTime between :start and :end and b.deleteType=com.darwin.dog.constant.BillDeleteType.NO_DELETE")
     List<Bill> findAllInDateTime(@Param("user") User user,@Param("start") LocalDateTime start,@Param("end") LocalDateTime end, Sort sort);
 
-    @Query("from Bill b where b.ledger.ID = :ledgerID and b.deleted=false")
+    @Query("from Bill b where b.ledger.ID = :ledgerID and b.deleteType=com.darwin.dog.constant.BillDeleteType.NO_DELETE")
     List<Bill> findAllByLedgerID(@Param("ledgerID") Long ledgerID);
 
-    @Query("from Bill b where b.ledger=:ledger and b.dateTime between :start and :end and b.deleted=false")
+    @Query("from Bill b where b.ledger=:ledger and b.dateTime between :start and :end and b.deleteType=com.darwin.dog.constant.BillDeleteType.NO_DELETE")
     List<Bill> findAllInDateTimeAndLedger(@Param("ledger") Ledger ledger,@Param("start") LocalDateTime start,@Param("end") LocalDateTime end, Sort sort);
 
     List<Bill> findBillsByUserEqualsAndRemarkIsLike(User user,String keyword);
 
-    @Modifying
-    @Query(value = "update Bill b set b.deleted=:state where b.ID=:ID")
-    void updateDeleteState(Long ID,Boolean state);
+
+    @Query("from Bill b where b.ledger.ID = :ledgerID and b.type=:billType and b.deleteType=com.darwin.dog.constant.BillDeleteType.NO_DELETE")
+    List<Bill> findByLedgerIDAndBillType(@Param("ledgerID") Long ledgerID, @Param("billType")BillType billType);
+
+
 }

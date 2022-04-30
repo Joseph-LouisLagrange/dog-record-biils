@@ -16,6 +16,10 @@ import java.util.List;
 @Transactional
 public interface LedgerService extends BasicService {
 
+    BigDecimal sumExpense(Long ledgerID);
+
+    BigDecimal sumIncome(Long ledgerID);
+
     /**
      * 通过获取账本，可能会发生未命中异常
      * @param ID 账本 ID
@@ -81,6 +85,8 @@ public interface LedgerService extends BasicService {
      * @return 总结余
      */
     BigDecimal sumSurplusForAllLedger();
+
+    boolean setUsingLedger(Long ledgerID);
 
     boolean update(UpdateLedgerDTO updateLedgerDTO);
 

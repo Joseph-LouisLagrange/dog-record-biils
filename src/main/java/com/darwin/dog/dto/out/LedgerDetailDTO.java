@@ -25,6 +25,9 @@ public class LedgerDetailDTO implements Serializable {
     private Boolean deleted;
     private Coin coin;
 
+    private Double sumExpense;
+    private Double sumIncome;
+
     @ApiModelProperty("总结余")
     private Double surplus;
     @ApiModelProperty("账单数量")

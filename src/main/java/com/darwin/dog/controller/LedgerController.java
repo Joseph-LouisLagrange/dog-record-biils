@@ -57,6 +57,11 @@ public class LedgerController {
         return ledgerMapper.ledgerToLedgerDetailDTO(ledgerService.getLedgerByID(ID));
     }
 
+    @GetMapping("setUsingLedger")
+    public boolean setUsingLedger(@RequestParam("ledgerID") Long ledgerID){
+        return ledgerService.setUsingLedger(ledgerID);
+    }
+
     @PostMapping("/update")
     public boolean update(@RequestBody UpdateLedgerDTO updateLedgerDTO){
         return ledgerService.update(updateLedgerDTO);
