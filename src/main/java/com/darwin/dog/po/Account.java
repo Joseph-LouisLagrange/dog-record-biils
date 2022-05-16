@@ -14,7 +14,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor(staticName = "of")
 @Entity
@@ -30,7 +29,7 @@ public class Account implements Serializable {
     private long ID;
 
     @NonNull
-    @ManyToOne(targetEntity = AccountType.class,cascade = CascadeType.PERSIST,optional = false)
+    @ManyToOne(targetEntity = AccountType.class,cascade = CascadeType.ALL,optional = false)
     @JoinColumn(referencedColumnName = "id",name = "type_id")
     private AccountType type;
 
@@ -67,7 +66,12 @@ public class Account implements Serializable {
 
     @NonNull
     @JsonIgnore
-    @OneToMany(targetEntity = Bill.class,cascade = CascadeType.PERSIST,mappedBy = "account")
+    @OneToMany(targetEntity = Bill.class,cascade = CascadeType.ALL,mappedBy = "account")
     private List<Bill> bills = new ArrayList<>();
+
+    @NonNull
+    @Comment("删除标记")
+    @Column(name = "deleted",columnDefinition = "INT(1) NOT NULL DEFAULT 0")
+    private Boolean deleted;
 
 }

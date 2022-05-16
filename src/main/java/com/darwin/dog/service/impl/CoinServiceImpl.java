@@ -9,6 +9,8 @@ import com.darwin.dog.service.inf.CoinService;
 import com.darwin.dog.util.GlobalStaticBean;
 import com.google.common.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@Cacheable(cacheNames = "coin")
 public class CoinServiceImpl implements CoinService {
 
     @Autowired

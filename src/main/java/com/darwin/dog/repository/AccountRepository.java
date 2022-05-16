@@ -12,16 +12,25 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account,Long> {
-    @Query("from Account a where a.user=:user order by a.createTime desc ")
+
+    void deleteAllByIDIsIn(Set<Long> IDs);
+
+    @Query("from Account a where a.user=:user and a.deleted=false order by a.createTime desc ")
     List<Account> findMyAll(@Param("user") User user);
 
-    @Query("select sum(a.balance) from Account a where a.user=:user and a.balance > 0")
-    Optional<BigDecimal> computeSumAssets(@Param("user") User user);
+    @Query("select count(a) from Account a where a.user=:user and a.deleted=true")
+    long countDeleted(@Param("user") User user);
 
-    @Query("select sum(a.balance) from Account a where a.user=:user and a.balance < 0")
-    Optional<BigDecimal> computeDebt(@Param("user") User user);
+    List<Account> findAccountsByUserAndBalanceGreaterThanAndAndDeleted(User user,BigDecimal balance,boolean deleted);
+
+    List<Account> findAccountsByUserAndBalanceLessThanAndDeleted(User user,BigDecimal balance,boolean deleted);
+
+    @Modifying
+    @Query("update Account a set a.deleted=true where a.ID=:ID")
+    void safeDelete(@Param("ID") long ID);
 
 }

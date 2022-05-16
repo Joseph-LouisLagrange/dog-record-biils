@@ -1,5 +1,6 @@
 package com.darwin.dog.po.sys;
 
+import com.darwin.dog.annotation.Comment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -19,12 +20,14 @@ import java.util.Set;
 @Setter
 @ToString
 @NoArgsConstructor
+@Comment("权限表")
 @RequiredArgsConstructor(staticName = "of")
 @Table(name = "permission",uniqueConstraints = {
         @UniqueConstraint(name = "permission-constraint0",columnNames = {"resource_type","action","resource_id"})
 })
 public class Permission implements Serializable {
     @Id
+    @Comment("主键ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique = true,updatable = false,columnDefinition = "BIGINT UNSIGNED")
     private long ID;

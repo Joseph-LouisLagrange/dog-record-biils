@@ -1,20 +1,27 @@
 package com.darwin.dog.service.inf;
 
-import com.darwin.dog.constant.BillType;
 import com.darwin.dog.dto.in.CreateLedgerInDTO;
 import com.darwin.dog.dto.in.UpdateLedgerDTO;
+import com.darwin.dog.dto.out.DeletedLedgerOutDTO;
 import com.darwin.dog.po.Ledger;
-import com.darwin.dog.po.User;
 import com.darwin.dog.service.inf.sys.BasicService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
-public interface LedgerService extends BasicService {
+public interface LedgerService extends BasicService{
+    boolean removeCompletely(Set<Long> IDs);
+
+    boolean recover(Long ID);
+
+    boolean recover(Set<Long> IDs);
+
+    long queryDeletedCount();
 
     BigDecimal sumExpense(Long ledgerID);
 
@@ -51,9 +58,11 @@ public interface LedgerService extends BasicService {
     /**
      * 统计账单的数量
      * @param ledgerID 目标账本 ID
-     * @return 实际的账单数量（未包括已删除的账单）
+     * @return 未删除的帐单数
      */
     long countBills(long ledgerID);
+
+    long countBillsAtBillDeletedType(long ledgerID,int billDeleteType);
 
     /**
      * 获取正在使用的账本
@@ -73,12 +82,16 @@ public interface LedgerService extends BasicService {
      */
     List<Ledger> getNotDeleted();
 
+    List<DeletedLedgerOutDTO> queryDeleted();
+
     /**
      * 计算账本的结余
      * @param ledgerID 账本 ID
      * @return BigDecimal 类型的结余结果
      */
     BigDecimal surplus(long ledgerID);
+
+    BigDecimal surplus(Ledger ledger);
 
     /**
      * 计算当前用户全部的未删除账本的结余之和

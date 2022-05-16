@@ -5,6 +5,8 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      fail_on_empty_beans: false
   mvc:
     format:
       date-time: yyyy-MM-dd HH:mm:ss

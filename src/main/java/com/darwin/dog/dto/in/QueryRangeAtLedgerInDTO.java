@@ -10,17 +10,10 @@ import java.util.List;
 
 @Data
 @ApiModel
-public class QueryRangeInDTO implements Serializable {
+public class QueryRangeAtLedgerInDTO implements Serializable {
     @ApiModelProperty("查询范围序列")
     public List<Range> ranges;
     @ApiModelProperty("账本 ID")
     public Long ledgerID;
 
-    @Data
-    public static class Range {
-        @ApiModelProperty("开始时间")
-        public LocalDateTime startDateTime;
-        @ApiModelProperty("结束时间")
-        public LocalDateTime endDateTime;
-    }
 }

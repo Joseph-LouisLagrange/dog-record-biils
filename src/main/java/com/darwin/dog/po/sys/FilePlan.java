@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @RequiredArgsConstructor(staticName = "of")
 @Entity
-@Comment("文件")
+@Comment("本地文件表")
 @Table(name = "file_plan")
 public class FilePlan {
     @Id

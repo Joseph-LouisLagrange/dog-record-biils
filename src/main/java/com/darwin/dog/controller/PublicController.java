@@ -10,6 +10,7 @@ import com.darwin.dog.service.inf.*;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -37,6 +38,7 @@ public class PublicController {
     CurrencyExchangeRateService currencyExchangeRateService;
 
     @PostMapping("currencyExchangeRate")
+    @Transactional
     public Map<Long, Double> currencyExchangeRate(@RequestBody CurrencyExchangeRateInDTO currencyExchangeRateInDTO) {
         return currencyExchangeRateService.currencyExchangeRate(
                 coinService.getOne(currencyExchangeRateInDTO.baseCoinID),

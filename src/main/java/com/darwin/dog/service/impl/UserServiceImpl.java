@@ -24,10 +24,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.activation.MimeTypeParseException;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 @Slf4j
 @Service("userServiceImpl")
@@ -74,5 +78,31 @@ public class UserServiceImpl implements UserService {
         String username = RandomStringUtils.randomNumeric(10);
         session.setAttribute("username",username);
         return username;
+    }
+
+    @Override
+    public boolean update(String nickName, String password, MultipartFile avatar) throws MimeTypeParseException, IOException {
+        User me = userRepository.getOne(getMe().getID());
+        if (nickName!=null){
+            me.setNickName(nickName);
+        }
+        if(password!=null){
+            me.setPassword(passwordEncoder.encode(password));
+        }
+        if(avatar!=null && !avatar.isEmpty()){
+            FileNode fileNode = httpFileService.upload(avatar);
+            me.setAvatarUrl(fileNode.getPreviewResourceURI());
+        }
+        me = userRepository.save(me);
+        getMe().setAvatarUrl(me.getAvatarUrl());
+        getMe().setNickName(me.getNickName());
+        return true;
+    }
+
+    @Override
+    public long liveDayCount() {
+        return getMe()
+                .getCreateDateTime()
+                .until(LocalDateTime.now(), ChronoUnit.DAYS) + 1;
     }
 }

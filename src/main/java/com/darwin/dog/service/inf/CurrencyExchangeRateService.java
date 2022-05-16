@@ -27,4 +27,8 @@ public interface CurrencyExchangeRateService {
      * @return 源货币换算为目标货币的金额
      */
     BigDecimal exchange(String sourceCoin,BigDecimal sourceCoinAmount,String targetCoin);
+
+    default BigDecimal exchange(Coin sourceCoin,BigDecimal sourceCoinAmount,Coin targetCoin){
+        return exchange(sourceCoin.getShortName(),sourceCoinAmount,targetCoin.getShortName());
+    }
 }

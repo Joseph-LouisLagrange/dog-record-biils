@@ -1,5 +1,6 @@
 package com.darwin.dog.po.sys;
 
+import com.darwin.dog.annotation.Comment;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -17,15 +18,18 @@ import java.util.Set;
 @Setter
 @ToString
 @NoArgsConstructor
+@Comment("角色表")
 @RequiredArgsConstructor(staticName = "of")
 @Table(name = "role")
 public class Role implements Serializable {
     @Id
+    @Comment("主键ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique = true,updatable = false,columnDefinition = "BIGINT UNSIGNED")
     private long ID;
 
     @NonNull
+    @Comment("角色名称")
     @Column(name = "name",updatable = false,columnDefinition = "VARCHAR(128)")
     private String name;
 

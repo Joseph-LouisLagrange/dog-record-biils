@@ -6,4 +6,5 @@ public interface ObjectsCode {
     int USER = 3;
     int LEDGER = 4;
     int COIN = 5;
+    int BILL = 6;
 }

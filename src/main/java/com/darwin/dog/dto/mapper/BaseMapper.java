@@ -10,24 +10,24 @@ public interface BaseMapper {
     }
 
     default Coin getCoin(Long coinID){
-        return getBean(CoinRepository.class).getOne(coinID);
+        return getBean(CoinRepository.class).findById(coinID).get();
     }
 
     default LedgerCover getLedgerCover(Long coverID){
-        return getBean(LedgerCoverRepository.class).getOne(coverID);
+        return getBean(LedgerCoverRepository.class).findById(coverID).get();
     }
 
-    default Signory getSignory(Long ID){return getBean(SignoryRepository.class).getOne(ID);}
+    default Signory getSignory(Long ID){return getBean(SignoryRepository.class).findById(ID).get();}
 
     default Ledger getLedger(Long ID){
-        return getBean(LedgerRepository.class).getOne(ID);
+        return getBean(LedgerRepository.class).findById(ID).get();
     }
 
     default Account getAccount(Long ID){
         if(ID == null){
             return null;
         }
-        return getBean(AccountRepository.class).getOne(ID);
+        return getBean(AccountRepository.class).findById(ID).get();
     }
 
 }

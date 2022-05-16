@@ -1,5 +1,6 @@
 package com.darwin.dog.po.sys;
 
+import com.darwin.dog.annotation.Comment;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -21,14 +22,17 @@ import java.io.Serializable;
 public class PermissionExpression implements Serializable {
 
     @NonNull
+    @Comment("资源类型")
     @Column(name = "resource_type",updatable = false,columnDefinition = "VARCHAR(128)")
     private String resourceType;          // 资源类型
 
     @NonNull
+    @Comment("动作")
     @Column(name = "action",unique = true,updatable = false,columnDefinition = "VARCHAR(128)")
     private String action;              // 动作
 
     @NonNull
+    @Comment("资源的实例对象")
     @Column(name = "resource_id",updatable = false,columnDefinition = "VARCHAR(64)")
     private String resource;      // 资源对象
 

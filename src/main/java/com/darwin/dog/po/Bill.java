@@ -4,6 +4,7 @@ import com.darwin.dog.annotation.Comment;
 import com.darwin.dog.constant.BillDeleteType;
 import com.darwin.dog.constant.BillType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -14,12 +15,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor(staticName = "of")
 @Entity
 @Comment("账单")
 @Table(name = "bill")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Bill implements Serializable {
 
     @Id
@@ -30,14 +31,13 @@ public class Bill implements Serializable {
     private long ID;
 
     @NonNull
-    @JsonIgnore
-    @ManyToOne(targetEntity = Ledger.class, cascade = CascadeType.ALL
+    @ManyToOne(targetEntity = Ledger.class, cascade = CascadeType.PERSIST
             , optional = false)
     @JoinColumn(name = "ledger_id", referencedColumnName = "id")
     private Ledger ledger;    // 所属账本
 
     @NonNull
-    @ManyToOne(targetEntity = Signory.class, cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(targetEntity = Signory.class, cascade = CascadeType.PERSIST, optional = false,fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id", name = "signory_id")
     private Signory signory;    // 领域
 
@@ -62,17 +62,16 @@ public class Bill implements Serializable {
     private BillType type;
 
 
-    @NonNull
     @Comment("删除标记")
     @Column(name = "delete_state")
-    private BillDeleteType deleteType;
+    private int deleteType;
 
     @NonNull
     @ManyToOne(targetEntity = Coin.class, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(referencedColumnName = "id", name = "coin_id")
     private Coin coin;    // 所用货币
 
-    @ManyToOne(targetEntity = Account.class, fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = Account.class, fetch = FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(referencedColumnName = "id",name = "account_id")
     private Account account;    // 所属账户(可以为 null 表示不计入账户)
 

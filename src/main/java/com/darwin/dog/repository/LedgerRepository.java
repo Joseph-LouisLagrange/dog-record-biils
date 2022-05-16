@@ -14,11 +14,14 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface LedgerRepository extends JpaRepository<Ledger,Long> {
 
-    @Query(value = "from Ledger l where l.user.ID =:#{#user.ID} and l.using=true and l.deleted=false")
+    void deleteAllByIDIsIn(Set<Long> IDs);
+
+    @Query(value = "from Ledger l where l.user=:user and l.using=true and l.deleted=false")
     Optional<Ledger> findUsingLedger(@Param("user") User user);
 
     @Deprecated
@@ -26,8 +29,14 @@ public interface LedgerRepository extends JpaRepository<Ledger,Long> {
     Optional<BigDecimal> computeSurplus(@Param("ledgerID") Long ledgerID);
 
 
+    @Query("select count(l) from Ledger l where l.user=:user and l.deleted=true")
+    long countDeleted(@Param("user") User user);
+
     @Query(value = "from Ledger l where l.deleted=false and l.user.ID = :userID")
     List<Ledger> findNotDeleted(@Param("userID") Long userID, Sort sort);
+
+    @Query(value = "from Ledger l where l.deleted=true and l.user = :user")
+    List<Ledger> findDeleted(@Param("user") User user, Sort sort);
 
     @Modifying
     @Query(value = "update Ledger l set l.deleted = true where l.ID = :ID")

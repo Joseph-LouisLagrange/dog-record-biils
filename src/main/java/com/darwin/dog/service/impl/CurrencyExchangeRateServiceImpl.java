@@ -6,6 +6,7 @@ import com.darwin.dog.service.inf.CurrencyExchangeRateService;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@Transactional
 public class CurrencyExchangeRateServiceImpl implements CurrencyExchangeRateService {
     @Autowired
     private RestTemplate restTemplate;
@@ -40,10 +42,13 @@ public class CurrencyExchangeRateServiceImpl implements CurrencyExchangeRateServ
     @Override
     public Map<Long, Double> currencyExchangeRate(Coin baseCoin, BigDecimal amount,
                                                   List<Coin> exchangeCoins) {
-        Map<Long,Double> ans = new HashMap<>();
-        for (Coin coin : exchangeCoins) {
-            ans.put(coin.getID(), exchange(baseCoin.getShortName(),amount,coin.getShortName()).doubleValue());
-        }
+        Map<Long,Double> ans = new ConcurrentHashMap<>();
+        String baseCoinShortName = baseCoin.getShortName();
+        // 触发提前加载
+        exchangeCoins.forEach(Coin::toString);
+        exchangeCoins
+                .parallelStream()
+                .forEach(coin -> ans.put(coin.getID(), exchange(baseCoinShortName,amount,coin.getShortName()).doubleValue()));
         return ans;
     }
 

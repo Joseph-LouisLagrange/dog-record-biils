@@ -25,21 +25,25 @@ public class Coin implements Serializable {
     private long ID;
 
     @NonNull
+    @Basic(fetch = FetchType.EAGER)
     @Comment("货币名称")
     @Column(name = "name",columnDefinition = "VARCHAR(128)")
     private String name;
 
     @NonNull
+    @Basic(fetch = FetchType.EAGER)
     @Comment("货币的英文缩写简称")
     @Column(name = "short_name",columnDefinition = "CHAR(4)",unique = true,nullable = false)
     private String shortName;
 
     @NonNull
+    @Basic(fetch = FetchType.EAGER)
     @Comment("货币标识")
     @Column(name = "symbol",columnDefinition = "CHAR(10)",unique = true,nullable = false)
     private String symbol;
 
     @NonNull
+    @Basic(fetch = FetchType.EAGER)
     @Comment("icon_url")
     @Column(name = "icon_url")
     private String iconUrl;

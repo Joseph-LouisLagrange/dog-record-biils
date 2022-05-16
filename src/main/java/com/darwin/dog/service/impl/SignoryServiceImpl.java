@@ -11,11 +11,13 @@ import com.darwin.dog.service.inf.SignoryService;
 import com.darwin.dog.util.GlobalStaticBean;
 import com.google.common.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Cacheable(cacheNames = "signory")
 public class SignoryServiceImpl implements SignoryService {
 
     @Autowired

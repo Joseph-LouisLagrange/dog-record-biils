@@ -1,11 +1,11 @@
 package com.darwin.dog.controller;
 
-import com.darwin.dog.annotation.NoDto;
 import com.darwin.dog.dto.in.CreateLedgerInDTO;
-import com.darwin.dog.dto.in.QueryRangeInDTO;
+import com.darwin.dog.dto.in.QueryRangeAtLedgerInDTO;
 import com.darwin.dog.dto.in.UpdateLedgerDTO;
 import com.darwin.dog.dto.mapper.LedgerMapper;
 import com.darwin.dog.dto.out.LedgerDetailDTO;
+import com.darwin.dog.dto.out.DeletedLedgerOutDTO;
 import com.darwin.dog.dto.out.LedgerRangeDetailDTO;
 import com.darwin.dog.dto.out.ListLedgerOutDTO;
 import com.darwin.dog.po.Ledger;
@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/ledger")
@@ -32,9 +34,24 @@ public class LedgerController {
     @Autowired
     BillService billService;
 
+    @PostMapping("removeCompletely")
+    public boolean removeCompletely(@RequestBody Set<Long> IDs){
+        return ledgerService.removeCompletely(IDs);
+    }
+
+    @PostMapping("recover")
+    public boolean recover(@RequestBody Set<Long> IDs){
+        return ledgerService.recover(IDs);
+    }
+
     @PostMapping("/create")
     public boolean create(@RequestBody CreateLedgerInDTO createLedgerInDTO){
         return ledgerService.create(createLedgerInDTO);
+    }
+
+    @GetMapping("/readDeleted")
+    public List<DeletedLedgerOutDTO> readDeleted(){
+        return ledgerService.queryDeleted();
     }
 
     @GetMapping("/delete")
@@ -42,9 +59,16 @@ public class LedgerController {
         return ledgerService.delete(ID);
     }
 
+    @GetMapping("/queryDeletedCount")
+    public long queryDeletedCount(){
+        return ledgerService.queryDeletedCount();
+    }
+
     @GetMapping("/readAll")
     public ListLedgerOutDTO readAll(){
-        return ledgerMapper.to(ledgerService.sumSurplusForAllLedger(),ledgerService.getNotDeleted());
+        return ledgerMapper.to(
+                ledgerService.sumSurplusForAllLedger(),
+                ledgerService.getNotDeleted());
     }
 
     @GetMapping("/readUsingLedger")
@@ -76,8 +100,8 @@ public class LedgerController {
 
     
     @PostMapping("/readLedgerForDateRanges")
-    public LedgerRangeDetailDTO readLedgerForDateRanges(@RequestBody QueryRangeInDTO queryRangeInDTO){
-        return billService.readLedgerForDateRanges(queryRangeInDTO);
+    public LedgerRangeDetailDTO readLedgerForDateRanges(@RequestBody QueryRangeAtLedgerInDTO queryRangeAtLedgerInDTO){
+        return billService.readLedgerForDateRanges(queryRangeAtLedgerInDTO);
     }
 
 

@@ -1,5 +1,6 @@
 package com.darwin.dog.po;
 
+import com.darwin.dog.annotation.Comment;
 import com.darwin.dog.po.sys.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -17,23 +18,28 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @ToString
+@Comment("用户表")
 @Table(name = "user")
 public class User extends com.darwin.dog.po.sys.SysUser implements UserDetails {
 
     @NonNull
+    @Comment("昵称")
     @Column(name = "nick_name",columnDefinition = "VARCHAR(128)")
     private String nickName;
 
     @NonNull
+    @Comment("用户名")
     @Column(name = "username",columnDefinition = "CHAR(10)")
     private String username;
 
+    @Comment("密码")
     @NonNull
     @Column(name = "password",columnDefinition = "VARCHAR(128)")
     private String password;
 
 
     @NonNull
+    @Comment("头像URL")
     @Column(name = "avatar_url")
     private String  avatarUrl;
 

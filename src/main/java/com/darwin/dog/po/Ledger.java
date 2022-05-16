@@ -4,6 +4,8 @@ import com.darwin.dog.annotation.Comment;
 import com.darwin.dog.po.sys.FilePlan;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -25,6 +27,7 @@ import java.util.List;
 public class Ledger implements Serializable {
 
     @Id
+    @JsonProperty("ID")
     @Comment("主键 ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique = true,nullable = false,updatable = false,insertable = false,columnDefinition = "bigint UNSIGNED")
@@ -57,7 +60,7 @@ public class Ledger implements Serializable {
 
     @NonNull
     @Comment("删除标记")
-    @Column(name = "deleted")
+    @Column(name = "deleted",columnDefinition = "INT(1) NOT NULL DEFAULT 0")
     private Boolean deleted;
 
 
@@ -69,7 +72,7 @@ public class Ledger implements Serializable {
 
     @NonNull
     @JsonIgnore
-    @OneToMany(targetEntity = Bill.class,mappedBy = "ledger",cascade = CascadeType.REFRESH)
+    @OneToMany(targetEntity = Bill.class,mappedBy = "ledger",cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Bill> bills;
 

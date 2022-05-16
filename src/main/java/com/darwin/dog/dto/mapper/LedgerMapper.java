@@ -3,9 +3,7 @@ package com.darwin.dog.dto.mapper;
 import com.darwin.dog.dto.in.CreateLedgerInDTO;
 import com.darwin.dog.dto.in.UpdateLedgerDTO;
 import com.darwin.dog.dto.out.LedgerDetailDTO;
-import com.darwin.dog.dto.out.LedgerRangeDetailDTO;
 import com.darwin.dog.dto.out.ListLedgerOutDTO;
-import com.darwin.dog.po.Bill;
 import com.darwin.dog.po.Ledger;
 import com.darwin.dog.po.User;
 import com.darwin.dog.service.inf.LedgerService;
@@ -16,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE,uses = {BillMapper.class},injectionStrategy = InjectionStrategy.FIELD
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE, uses = {BillMapper.class}, injectionStrategy = InjectionStrategy.FIELD
         , imports = {LocalDateTime.class, BigDecimal.class})
 public interface LedgerMapper extends BaseMapper {
 
@@ -49,11 +47,11 @@ public interface LedgerMapper extends BaseMapper {
         return getBean(LedgerService.class).surplus(ledgerID);
     }
 
-    default BigDecimal sumExpense(Long ledgerID){
+    default BigDecimal sumExpense(Long ledgerID) {
         return getBean(LedgerService.class).sumExpense(ledgerID);
     }
 
-    default BigDecimal sumIncome(Long ledgerID){
+    default BigDecimal sumIncome(Long ledgerID) {
         return getBean(LedgerService.class).sumIncome(ledgerID);
     }
 
@@ -66,10 +64,9 @@ public interface LedgerMapper extends BaseMapper {
     void updateLedgerDTOToLedger(UpdateLedgerDTO updateLedgerDTO, @MappingTarget Ledger ledger);
 
 
-
     @Mapping(target = "sumIncome", expression = "java(sumIncome(ledger.getID()).doubleValue())")
-    @Mapping(target = "sumExpense",expression = "java(sumExpense(ledger.getID()).doubleValue())")
-    @Mapping(target = "ID",expression = "java(ledger.getID())")
+    @Mapping(target = "sumExpense", expression = "java(sumExpense(ledger.getID()).doubleValue())")
+    @Mapping(target = "ID", expression = "java(ledger.getID())")
     @Mapping(target = "surplus", expression = "java(getSurplus(ledger.getID()).doubleValue())")
     @Mapping(target = "billCount", expression = "java(getBillCount(ledger.getID()))")
     LedgerDetailDTO ledgerToLedgerDetailDTO(Ledger ledger);

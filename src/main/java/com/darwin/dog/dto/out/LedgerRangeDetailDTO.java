@@ -4,6 +4,7 @@ import com.darwin.dog.po.Coin;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel
+@Builder
 public class LedgerRangeDetailDTO implements Serializable {
     @ApiModelProperty("结余")
     public Double surplus;

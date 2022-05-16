@@ -3,13 +3,12 @@ package com.darwin.dog.dto.mapper;
 import com.darwin.dog.constant.BillDeleteType;
 import com.darwin.dog.constant.BillType;
 import com.darwin.dog.dto.in.CreateBillInDTO;
+import com.darwin.dog.dto.in.UpdateBillDTO;
 import com.darwin.dog.dto.out.BillsBlockDTO;
 import com.darwin.dog.po.Bill;
 import com.darwin.dog.po.Coin;
 import com.darwin.dog.po.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,7 +23,7 @@ public interface BillMapper extends BaseMapper {
     @Mapping(target = "user", source = "user")
     @Mapping(target = "signory", expression = "java(getSignory(createBillInDTO.signoryID))")
     @Mapping(target = "ledger", expression = "java(getLedger(createBillInDTO.ledgerID))")
-    @Mapping(target = "dateTime", expression = "java(LocalDateTime.now())")
+    // @Mapping(target = "dateTime", expression = "java(LocalDateTime.now())")
     @Mapping(target = "coin", expression = "java(getCoin(createBillInDTO.coinID))")
     @Mapping(target = "account", expression = "java(getAccount(createBillInDTO.accountID))")
     @Mapping(target = "ID", ignore = true)
@@ -40,7 +39,17 @@ public interface BillMapper extends BaseMapper {
     }
 
     //    @Mapping(target = "bills",expression = "java(new java.util.ArrayList<>(bills))")
-//    @Mapping(target = "total",expression = "java(total.doubleValue())")
+    //    @Mapping(target = "total",expression = "java(total.doubleValue())")
     BillsBlockDTO toBillsBlockDTO(BigDecimal total, List<Bill> bills, LocalDateTime dateTime, Coin coin);
 
+
+    @Mapping(target = "ID", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "deleteType", ignore = true)
+    @Mapping(target = "amount", expression = "java(safeAmount(updateBillDTO.getAmount(),updateBillDTO.getType()))")
+    @Mapping(expression = "java(getLedger(updateBillDTO.getLedgerID()))", target = "ledger")
+    @Mapping(expression = "java(getSignory(updateBillDTO.getSignoryID()))", target = "signory")
+    @Mapping(expression = "java(getCoin(updateBillDTO.getCoinID()))", target = "coin")
+    @Mapping(expression = "java(getAccount(updateBillDTO.getAccountID()))", target = "account")
+    void updateBillDTOToBill(UpdateBillDTO updateBillDTO, @MappingTarget Bill bill);
 }
