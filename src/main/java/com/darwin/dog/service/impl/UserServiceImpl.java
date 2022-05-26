@@ -105,4 +105,9 @@ public class UserServiceImpl implements UserService {
                 .getCreateDateTime()
                 .until(LocalDateTime.now(), ChronoUnit.DAYS) + 1;
     }
+
+    @Override
+    public User getFullMe() {
+        return userRepository.findById(getMe().getID()).get();
+    }
 }

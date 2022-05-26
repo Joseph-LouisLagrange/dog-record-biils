@@ -4,6 +4,8 @@ import com.darwin.dog.annotation.Comment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +21,8 @@ import java.util.List;
 @Entity
 @Comment("用户账户")
 @Table(name = "account")
+@DynamicUpdate
+@DynamicInsert
 public class Account implements Serializable {
 
     @Id
@@ -29,7 +33,7 @@ public class Account implements Serializable {
     private long ID;
 
     @NonNull
-    @ManyToOne(targetEntity = AccountType.class,cascade = CascadeType.ALL,optional = false)
+    @ManyToOne(targetEntity = AccountType.class,optional = false)
     @JoinColumn(referencedColumnName = "id",name = "type_id")
     private AccountType type;
 
@@ -69,7 +73,6 @@ public class Account implements Serializable {
     @OneToMany(targetEntity = Bill.class,cascade = CascadeType.ALL,mappedBy = "account")
     private List<Bill> bills = new ArrayList<>();
 
-    @NonNull
     @Comment("删除标记")
     @Column(name = "deleted",columnDefinition = "INT(1) NOT NULL DEFAULT 0")
     private Boolean deleted;

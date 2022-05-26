@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("/getMe")
     public UserOutDto getMe(){
-        return userMapper.userToUserOutDto(userService.getMe());
+        return userMapper.userToUserOutDto(userService.getFullMe());
     }
 
     @GetMapping("/isLogin")

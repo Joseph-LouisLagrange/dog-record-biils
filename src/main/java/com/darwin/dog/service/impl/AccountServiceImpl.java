@@ -37,8 +37,13 @@ public class AccountServiceImpl implements AccountService {
     private CurrencyExchangeRateService currencyExchangeRateService;
 
     @Override
+    public List<Account> queryDeletedAccounts() {
+        return accountRepository.findAccountsByUserAndDeleted(getMe(), true);
+    }
+
+    @Override
     public boolean removeCompletely(Set<Long> IDs) {
-        accountRepository.deleteAllByIDIsIn(IDs);
+        accountRepository.deleteAll(accountRepository.findAllById(IDs));
         return true;
     }
 
@@ -48,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
         account.setDeleted(false);
         account.getBills()
                 .parallelStream()
-                .forEach(bill -> bill.setDeleteType((~BillDeleteType.ACCOUNT_DELETE)& bill.getDeleteType())
+                .forEach(bill -> bill.setDeleteType((~BillDeleteType.ACCOUNT_DELETE) & bill.getDeleteType())
                 );
         accountRepository.save(account);
         return true;
@@ -56,14 +61,16 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public boolean recover(Set<Long> IDs) {
-        accountRepository.findAllById(IDs)
+        List<Account> accounts = accountRepository.findAllById(IDs);
+        accounts
                 .forEach(account -> {
                     account.setDeleted(false);
                     account.getBills()
                             .parallelStream()
-                            .forEach(bill -> bill.setDeleteType((~BillDeleteType.ACCOUNT_DELETE)& bill.getDeleteType())
+                            .forEach(bill -> bill.setDeleteType((~BillDeleteType.ACCOUNT_DELETE) & bill.getDeleteType())
                             );
                 });
+        accountRepository.saveAll(accounts);
         return true;
     }
 
@@ -107,7 +114,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public synchronized boolean addBalance(Long ID, Coin coin ,BigDecimal changeAmount) {
+    public synchronized boolean addBalance(Long ID, Coin coin, BigDecimal changeAmount) {
         Account account = accountRepository.getOne(ID);
         // 汇率换算
         changeAmount = currencyExchangeRateService.exchange(
@@ -120,7 +127,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public synchronized boolean subtractBalance(Long ID,Coin coin, BigDecimal changeAmount) {
+    public synchronized boolean subtractBalance(Long ID, Coin coin, BigDecimal changeAmount) {
         Account account = accountRepository.getOne(ID);
         // 汇率换算
         changeAmount = currencyExchangeRateService.exchange(
@@ -140,11 +147,11 @@ public class AccountServiceImpl implements AccountService {
                         BigDecimal.ZERO,
                         false)
                 .parallelStream()
-                .map(account->currencyExchangeRateService.exchange(
+                .map(account -> currencyExchangeRateService.exchange(
                         account.getCoin().getShortName(),
                         account.getBalance(),
                         Coins.CNY
-                        ))
+                ))
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
     }
@@ -157,7 +164,7 @@ public class AccountServiceImpl implements AccountService {
                         BigDecimal.ZERO,
                         false)
                 .parallelStream()
-                .map(account->currencyExchangeRateService.exchange(
+                .map(account -> currencyExchangeRateService.exchange(
                         account.getCoin().getShortName(),
                         account.getBalance(),
                         Coins.CNY

@@ -17,7 +17,7 @@ import java.util.Set;
 @Repository
 public interface AccountRepository extends JpaRepository<Account,Long> {
 
-    void deleteAllByIDIsIn(Set<Long> IDs);
+    List<Account> findAccountsByUserAndDeleted(User user,boolean deleted);
 
     @Query("from Account a where a.user=:user and a.deleted=false order by a.createTime desc ")
     List<Account> findMyAll(@Param("user") User user);

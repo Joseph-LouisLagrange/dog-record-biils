@@ -32,6 +32,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -494,12 +495,17 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public BigDecimal sum(List<Bill> bills, String baseCoin) {
-        return bills.parallelStream()
-                .map(bill -> currencyExchangeRateService
-                        .exchange(
-                                bill.getCoin().getShortName(), bill.getAmount(), baseCoin
-                        ))
-                .reduce(BigDecimal::add).orElse(BigDecimal.ZERO);
+        List<AbstractMap.SimpleEntry<Coin, BigDecimal>> entries = bills
+                .stream()
+                .map(bill -> new AbstractMap.SimpleEntry<>(bill.getCoin(), bill.getAmount())).collect(Collectors.toList());
+        return sum0(entries,baseCoin);
     }
 
+    private BigDecimal sum0(List<? extends Map.Entry<Coin, BigDecimal>> entries, String baseCoin) {
+        return entries.parallelStream()
+                .map(entry -> currencyExchangeRateService
+                        .exchange(entry.getKey().getShortName(), entry.getValue(), baseCoin))
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
+    }
 }

@@ -30,9 +30,8 @@ public class SimpleTest {
     @Autowired
     LedgerService ledgerService;
 
-
     @Test
-    public void test()  {
+    public void test() {
 
     }
 }

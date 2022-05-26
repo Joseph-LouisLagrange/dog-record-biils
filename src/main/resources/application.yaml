@@ -1,7 +1,8 @@
 spring:
   servlet:
     multipart:
-      max-file-size: 20MB
+      max-file-size: 100MB
+      max-request-size: 110MB
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -45,7 +46,6 @@ spring:
     open-in-view: true
   profiles:
     include: custom
-
 server:
   servlet:
     encoding:
@@ -54,6 +54,8 @@ server:
       enabled: true
   tomcat:
     uri-encoding: UTF-8
+    max-http-form-post-size: 100MB
+    max-swallow-size: 100MB
 logging:
   level:
     root: info

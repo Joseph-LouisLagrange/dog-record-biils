@@ -21,6 +21,7 @@ import java.util.ArrayList;
 @Mapper(componentModel = "spring",imports = {BigDecimal.class,LocalDateTime.class,SpringStaticFactory.class,AccountTypeRepository.class, ArrayList.class})
 public interface AccountMapper extends BaseMapper {
 
+    @Mapping(target = "deleted",ignore = true)
     @Mapping(target = "coin", expression = "java(getCoin(addAccountInDTO.getCoinID()))")
     @Mapping(target = "balance",expression = "java(BigDecimal.valueOf(addAccountInDTO.getBalance()))")
     @Mapping(target = "createTime", expression = "java(LocalDateTime.now())")

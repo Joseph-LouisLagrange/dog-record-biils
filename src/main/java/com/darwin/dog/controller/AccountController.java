@@ -35,6 +35,10 @@ public class AccountController {
         return accountService.recover(IDs);
     }
 
+    @GetMapping("/readDeletedAccounts")
+    public List<Account> readDeletedAccounts(){
+        return accountService.queryDeletedAccounts();
+    }
 
     @GetMapping("/queryDeletedCount")
     public long queryDeletedCount(){

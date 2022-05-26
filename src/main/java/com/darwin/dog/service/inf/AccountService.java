@@ -14,6 +14,8 @@ import java.util.Set;
 @Service
 public interface AccountService extends BasicService {
 
+    List<Account> queryDeletedAccounts();
+
     boolean removeCompletely(Set<Long> IDs);
 
     boolean recover(Long ID);
